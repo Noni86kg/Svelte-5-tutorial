@@ -2,6 +2,9 @@
 	import { fly } from 'svelte/transition';
 	import Header from './Header.svelte';
 	import SecondHeader from './SecondHeader.svelte';
+	import ComponentA from './ComponentA.svelte';
+	// import { setContext } from 'svelte';
+	import { setBananaContext, setNumOfClickContext } from './context';
 
 	type ID = 'name' | 'birthday' | 'color';
 
@@ -24,6 +27,23 @@
 		step: 0,
 		error: ''
 	});
+
+	// const key = Symbol('key');
+	let numOfClick: { num: number } = $state({ num: 0 });
+	let prop: { banana: string } = $state({ banana: 'bannana' });
+	setNumOfClickContext(numOfClick);
+	setBananaContext(prop);
+	// setContext(key, prop);
+
+	// let prop: string = $state('bannana');
+	// setContext('key', {
+	// 	get bannana() {
+	// 		return prop;
+	// 	},
+	// 	set bannana(v) {
+	// 		prop = v;
+	// 	}
+	// });
 
 	// Something like console.log
 	$inspect(formState.step);
@@ -134,6 +154,10 @@
 		<button onclick={() => nextStep(id)}>Next</button>
 	</article>
 {/snippet}
+
+<input type="text" bind:value={prop.banana} />
+
+<ComponentA />
 
 <!-- <script lang="ts">
   import Header from './Header.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createState, ScottState } from './state.svelte';
+	import { getNumOfClickContext } from './context';
 	import type { Snippet } from 'svelte';
 
 	let {
@@ -12,8 +12,7 @@
 		secondChild: Snippet<[string]>;
 	} = $props();
 
-	const myState = createState();
-	const myStateTwo = new ScottState();
+	const numOfClick = getNumOfClickContext();
 </script>
 
 <div>
@@ -23,9 +22,8 @@
 
 	<h3>{@render secondChild('Scott')}</h3>
 
-	<button onclick={myState.up}>{myState.value}</button>
-
-	<button onclick={() => myStateTwo.up()}>Scott State: {myStateTwo.value}</button>
+	<p>Number of click: {numOfClick.num}</p>
+	<button onclick={() => (numOfClick.num += 1)}>Increment by 1</button>
 </div>
 
 <!-- <h2>{name.replaceAll('t', 'X')}</h2>
